@@ -3,15 +3,6 @@
 
 MAKE=make
 SHELL=/bin/bash
-PYTHON24=python2.4
-PYTHON25=python2.5
-PYTHON26=python2.6
-PYTHON27=python2.7
-PYTHON31=python3.1
-PYTHON32=python3.2
-PYTHON33=python3.3
-PYTHON34=python3.4
-PYTHON35=python3.5
 PYTHON=/usr/bin/python
 PYTHON3=/usr/bin/python3
 IANA=./tz
@@ -37,13 +28,8 @@ dist: build eggs wheels
 
 eggs:
 	cd build/dist && mkdir -p ../tarballs
-	cd build/dist && ${PYTHON24} setup.py -q bdist_egg --dist-dir=../tarballs
-	cd build/dist && ${PYTHON25} setup.py -q bdist_egg --dist-dir=../tarballs
-	cd build/dist && ${PYTHON26} setup.py -q bdist_egg --dist-dir=../tarballs
-	cd build/dist && ${PYTHON27} setup.py -q bdist_egg --dist-dir=../tarballs
-	cd build/dist && ${PYTHON35} setup.py -q bdist_egg --dist-dir=../tarballs
-	cd build/dist && ${PYTHON34} setup.py -q bdist_egg --dist-dir=../tarballs
-	cd build/dist && ${PYTHON33} setup.py -q bdist_egg --dist-dir=../tarballs
+	cd build/dist && ${PYTHON} setup.py -q bdist_egg --dist-dir=../tarballs
+	cd build/dist && ${PYTHON3} setup.py -q bdist_egg --dist-dir=../tarballs
 
 wheels:
 	cd build/dist && mkdir -p ../tarballs
@@ -70,32 +56,18 @@ clean:
 
 test_lazy: .stamp-tzinfo
 	cd build/dist/pytz/tests \
-	    && ${PYTHON24} test_lazy.py ${TESTARGS} \
-	    && ${PYTHON25} test_lazy.py ${TESTARGS} \
-	    && ${PYTHON26} test_lazy.py ${TESTARGS} \
-	    && ${PYTHON27} test_lazy.py ${TESTARGS} \
-	    && ${PYTHON31} test_lazy.py ${TESTARGS} \
-	    && ${PYTHON32} test_lazy.py ${TESTARGS} \
-	    && ${PYTHON33} test_lazy.py ${TESTARGS} \
-	    && ${PYTHON34} test_lazy.py ${TESTARGS} \
-	    && ${PYTHON35} test_lazy.py ${TESTARGS}
+	    && ${PYTHON} test_lazy.py ${TESTARGS} \
+	    && ${PYTHON3} test_lazy.py ${TESTARGS}
 
 test_tzinfo: .stamp-tzinfo
 	cd build/dist/pytz/tests \
-	    && ${PYTHON24} test_tzinfo.py ${TESTARGS} \
-	    && ${PYTHON25} test_tzinfo.py ${TESTARGS} \
-	    && ${PYTHON26} test_tzinfo.py ${TESTARGS} \
-	    && ${PYTHON27} test_tzinfo.py ${TESTARGS} \
-	    && ${PYTHON31} test_tzinfo.py ${TESTARGS} \
-	    && ${PYTHON32} test_tzinfo.py ${TESTARGS} \
-	    && ${PYTHON33} test_tzinfo.py ${TESTARGS} \
-	    && ${PYTHON34} test_tzinfo.py ${TESTARGS} \
-	    && ${PYTHON35} test_tzinfo.py ${TESTARGS}
+	    && ${PYTHON} test_tzinfo.py ${TESTARGS} \
+	    && ${PYTHON3} test_tzinfo.py ${TESTARGS}
 
 test_docs: .stamp-tzinfo
 	cd build/dist/pytz/tests \
-	    && ${PYTHON27} test_docs.py ${TESTARGS} \
-	    && ${PYTHON34} test_docs.py ${TESTARGS}
+	    && ${PYTHON} test_docs.py ${TESTARGS} \
+	    && ${PYTHON3} test_docs.py ${TESTARGS}
 
 test_zdump: dist
 	${PYTHON} gen_tests.py ${TARGET} && \
